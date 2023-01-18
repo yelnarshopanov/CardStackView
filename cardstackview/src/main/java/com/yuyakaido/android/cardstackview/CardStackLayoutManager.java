@@ -412,6 +412,14 @@ public class CardStackLayoutManager
         float currentScale = 1.0f - index * (1.0f - setting.scaleInterval);
         float nextScale = 1.0f - nextIndex * (1.0f - setting.scaleInterval);
         float targetScale = currentScale + (nextScale - currentScale) * state.getRatio();
+        if(Float.isNaN(targetScale)) {
+            targetScale = (currentScale + nextScale) * 0.5f;
+            if(Float.isNaN(targetScale)) {
+                targetScale = 0.5f; 
+
+            }
+        }
+
         switch (setting.stackFrom) {
             case None:
                 view.setScaleX(targetScale);
